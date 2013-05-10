@@ -95,7 +95,7 @@ extern NSString *const AFIS3AccessPolicyBucketOwnerFullControl;
                                      withBucket:(NSString *)bucket
                                             key:(NSString *)key
                                         success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-                                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+                                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 /**
  Overrides AFHTTPClient putPath function so we can post the data in the body of the request without using parameters
