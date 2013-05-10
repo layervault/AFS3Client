@@ -83,6 +83,19 @@ NSString *const AFIS3AccessPolicyBucketOwnerFullControl = @"bucket-owner-full-co
 	}];
 }
 
+- (AFHTTPRequestOperation *)putOperationForData:(NSData *)data
+                                     withBucket:(NSString *)bucket
+                                            key:(NSString *)key
+                                        success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+{
+    NSString *path = [NSString stringWithFormat:@"%@%@", bucket, key];
+    [self buildRequestHeadersForBucket:bucket key:key];
+    NSURLRequest *request = [self requestWithMethod:@"PUT" path:path data:data];
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:success failure:failure];
+    return operation;
+}
+
 #pragma mark - AFHTTPClient
 
 - (void)putPath:(NSString *)path
