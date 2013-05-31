@@ -69,6 +69,18 @@ NSString *const AFIS3AccessPolicyBucketOwnerFullControl = @"bucket-owner-full-co
                  success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                  failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
+    if (!_accessKey || !_secretAccessKey) {
+        if (failure)
+            failure(nil, [NSError errorWithDomain:@"com.layervault"
+                                             code:-1
+                                         userInfo:@{
+                        NSLocalizedDescriptionKey: @"Didn't have AWS access keys. Bailing out."
+                          }
+                          ]
+                    );
+        return;
+    }
+
 	NSString *path = [NSString stringWithFormat:@"%@%@", bucket, key];
 	
 	[self buildRequestHeadersForBucket:bucket key:key];
